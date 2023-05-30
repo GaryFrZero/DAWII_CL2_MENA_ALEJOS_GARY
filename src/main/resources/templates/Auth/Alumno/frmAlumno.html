@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/styles/bootstrap/bootstrap.min.css}"
+          rel="stylesheet"/>
+    <script th:src="@{/scripts/bootstrap/bootstrap.bundle.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/scripts/jquery/jquery.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/scripts/jsweb/alumno/frmAlumno.js}"
+            type="text/javascript"></script>
+</head>
+<body>
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <div class="card">
+        <div class="card-header text-bg mb-3 text-center">
+            <h1>MANTENIMIENTO DE ALUMNOS</h1>
+        </div>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button id="btnagregar" type="button" class="btn btn-success btn-block">Agregar</button>
+        </div>
+        <br>
+        <div class="card-body">
+            <div id="mensaje"></div>
+            <div class="container">
+                <table id="tblalumno" class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Especialidad</th>
+                        <th scope="col">Local</th>
+                        <th scope="col">Actualizar</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="alumno :${listaAlumnos}">
+                        <td th:text="${alumno.idalumno}"></td>
+                        <td th:text="${alumno.nomalumno}"></td>
+                        <td th:text="${alumno.apealumno}"></td>
+                        <td th:text="${alumno.especialidad.nomesp}"></td>
+                        <td th:text="${alumno.locales}"></td>
+                        <td>
+                            <button type="button" class="btn btn-info btnactualizar"
+                                    th:data-IdAlumno="${alumno.idalumno}"
+                                    th:data-NomAlumno="${alumno.nomalumno}"
+                                    th:data-ApeAlumno="${alumno.apealumno}"
+                                    th:data-Locales="${alumno.locales}"
+                                    th:data-IdEsp="${alumno.especialidad.idesp}">Actualizar</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btneliminar"
+                                    th:data-IdAlumno="${alumno.idalumno}">Eliminar</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalNuevo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Alumno</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="txtnombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="txtnombre">
+                </div>
+                <div class="mb-3">
+                    <label for="txtapellido" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" id="txtapellido">
+                </div>
+                <div class="mb-3">
+                    <label for="cboespecialidad" class="form-label">Especialidad</label>
+                    <select id="cboespecialidad" class="form-control"></select>
+                </div>
+                <div class="mb-3">
+                    <label for="txtlocales" class="form-label">Locales</label>
+                    <input type="text" class="form-control" id="txtlocales">
+                </div>
+                <input type="hidden" id="hddidalumno">
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnguardar" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

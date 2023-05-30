@@ -1,0 +1,66 @@
+create database alumno;
+use alumno;
+CREATE TABLE usuario (
+	idusuario INT auto_increment NOT NULL,
+	nomusuario varchar(100) NULL,		
+	email varchar(200) NULL,
+	password varchar(300) NULL,
+	nombres varchar(100) NULL,
+	apellidos varchar(100) NULL,
+	activo BOOL NULL,
+	CONSTRAINT users_pk PRIMARY KEY (idusuario)
+);
+
+
+CREATE TABLE rol (
+	idrol INT auto_increment NOT NULL,
+	nomrol varchar(300) NULL,
+	CONSTRAINT roles_pk PRIMARY KEY (idrol)
+);
+
+
+CREATE TABLE usuario_rol (
+	idusuario INT NOT NULL,
+	idrol INT NOT NULL,
+	CONSTRAINT user_role_pk PRIMARY KEY (idusuario, idrol),
+	CONSTRAINT user_role_FK FOREIGN KEY (idusuario) REFERENCES usuario(idusuario),
+	CONSTRAINT user_role_FK_1 FOREIGN KEY (idrol) REFERENCES rol(idrol)
+);
+
+
+
+CREATE TABLE especialidad (
+  idesp int NOT NULL AUTO_INCREMENT,
+  nomesp varchar(50) NOT NULL,  
+  PRIMARY KEY (idesp)
+);
+
+CREATE TABLE alumno (
+  idalumno int NOT NULL AUTO_INCREMENT,
+  apealumno varchar(50) NOT NULL,
+  nomalumno varchar(50) NOT NULL,
+  idesp int NOT NULL,
+  locales varchar(50) DEFAULT NULL,
+  PRIMARY KEY (idalumno),
+  KEY alumno_fk (idesp),
+  CONSTRAINT alumno_fk_1 FOREIGN KEY (idesp) REFERENCES especialidad (idesp)
+) ;
+
+INSERT INTO `alumno`.`especialidad` (`idesp`, `nomesp`) VALUES ('1', 'Computacion e informatica');
+INSERT INTO `alumno`.`especialidad` (`idesp`, `nomesp`) VALUES ('2', 'Electronica');
+INSERT INTO `alumno`.`especialidad` (`idesp`, `nomesp`) VALUES ('3', 'Ingles');
+INSERT INTO `alumno`.`especialidad` (`idesp`, `nomesp`) VALUES ('4', 'Matematicas');
+INSERT INTO `alumno`.`especialidad` (`idesp`, `nomesp`) VALUES ('5', 'Contabilidad');
+
+
+INSERT INTO alumno.alumno (idalumno, apealumno, nomalumno, idesp, locales) VALUES
+    (1, 'García Márquez', 'Gabriel', 1, 'Lima'),
+    (2, 'Allende', 'Isabel', 2, 'San Isidro'),
+    (3, 'Neruda', 'Pablo', 3, 'Miraflores'),
+    (4, 'Murakami', 'Haruki', 4, 'Barranco'),
+    (5, 'Austen', 'Jane', 5, 'Surco'),
+    (6, 'Orwell', 'George', 1, 'Magdalena'),
+    (7, 'Shakespeare', 'William', 2, 'Chorrillos'),
+    (8, 'Plath', 'Sylvia', 3, 'Breña'),
+    (9, 'Ginsberg', 'Allen', 4, 'San Miguel'),
+    (10, 'Pessoa', 'Fernando', 5, 'Jesús María');
